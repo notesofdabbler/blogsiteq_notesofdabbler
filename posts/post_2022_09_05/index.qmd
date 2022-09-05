@@ -4,7 +4,7 @@ author: 'Notesofdabbler'
 date: '2022-09-05'
 execute: 
   eval: false
-categories: ['R']
+categories: [R]
 ---
 
 There is a class of software for modeling optimization problems referred to as algebraic modeling systems which provide a unified interface to formulate optimization problems in a manner that is close to mathematical depiction and have the ability to link to different types of solvers (sparing the user from solver specific ways of formulating the problem). Both commercial and open source options are available. [GAMS](https://www.gams.com/) and [AMPL](https://ampl.com/) are examples of commercial options. The popular open source options are [JuMP](https://jump.dev/JuMP.jl/stable/) in Julia and [Pyomo](http://www.pyomo.org/) in python. I have typically used Pyomo in Python but have [explored](https://notesofdabbler.github.io/R_pyomo/2020_07_01_r_pyomo_blogpost.html) using it from R. I recently became aware of algebraic modeling system in R provided by [OMPR](https://dirkschumacher.github.io/ompr/) package. 

@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Notes of a Dabbler</title>
-<link>https://timely-narwhal-1c7288.netlify.app/index.html</link>
-<atom:link href="https://timely-narwhal-1c7288.netlify.app/index.xml" rel="self" type="application/rss+xml"/>
-<description></description>
+<link>https://www.notesofdabbler.com/index.html</link>
+<atom:link href="https://www.notesofdabbler.com/index.xml" rel="self" type="application/rss+xml"/>
+<description>Blog to catalog learnings</description>
 <generator>quarto-1.0.36</generator>
 <lastBuildDate>Mon, 05 Sep 2022 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Exploring OMPR with HiGHS solver</title>
   <dc:creator>Notesofdabbler</dc:creator>
-  <link>https://timely-narwhal-1c7288.netlify.app/posts/post_2022_09_05/index.html</link>
+  <link>https://www.notesofdabbler.com/posts/post_2022_09_05/index.html</link>
   <description><![CDATA[ 
 
 
@@ -101,9 +101,9 @@
 <p>The figure on the left show the supply network (plants on top and markets below with numbers being capacity for plants and demand for markets). The figure on the right shows the solution where Chicago market is supplied by Seattle plant and San Diego plant supplies both New York and Topeka markets.</p>
 <div class="columns">
 <div class="column border">
-<p><em>Network Information</em> <img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2022_09_05/network_info.png" class="img-fluid"></p>
+<p><em>Network Information</em> <img src="https://www.notesofdabbler.com/posts/post_2022_09_05/network_info.png" class="img-fluid"></p>
 </div><div class="column border">
-<p><em>Solution</em> <img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2022_09_05/network_soln.png" class="img-fluid"></p>
+<p><em>Solution</em> <img src="https://www.notesofdabbler.com/posts/post_2022_09_05/network_soln.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -140,21 +140,21 @@
 </div>
 </div>
 <p>Solving this problem give the following map coloring</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2022_09_05/USmap_colored.png" class="img-fluid"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2022_09_05/USmap_colored.png" class="img-fluid"></p>
 
 
 </section>
 
  ]]></description>
   <category>R</category>
-  <guid>https://timely-narwhal-1c7288.netlify.app/posts/post_2022_09_05/index.html</guid>
+  <guid>https://www.notesofdabbler.com/posts/post_2022_09_05/index.html</guid>
   <pubDate>Mon, 05 Sep 2022 00:00:00 GMT</pubDate>
-  <media:content url="https://timely-narwhal-1c7288.netlify.app/posts/post_2022_09_05/network_info.png" medium="image" type="image/png" height="121" width="144"/>
+  <media:content url="https://www.notesofdabbler.com/posts/post_2022_09_05/network_info.png" medium="image" type="image/png" height="121" width="144"/>
 </item>
 <item>
   <title>Using Pyomo from R through the magic of Reticulate</title>
   <dc:creator>Notesofdabbler</dc:creator>
-  <link>https://timely-narwhal-1c7288.netlify.app/posts/post_2020_07_01/index.html</link>
+  <link>https://www.notesofdabbler.com/posts/post_2020_07_01/index.html</link>
   <description><![CDATA[ 
 
 
@@ -176,13 +176,13 @@
 </section>
 
  ]]></description>
-  <guid>https://timely-narwhal-1c7288.netlify.app/posts/post_2020_07_01/index.html</guid>
+  <guid>https://www.notesofdabbler.com/posts/post_2020_07_01/index.html</guid>
   <pubDate>Wed, 01 Jul 2020 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Proofs without Words using gganimate</title>
   <dc:creator>Notesofdabbler</dc:creator>
-  <link>https://timely-narwhal-1c7288.netlify.app/posts/post_2020_04_26/index.html</link>
+  <link>https://www.notesofdabbler.com/posts/post_2020_04_26/index.html</link>
   <description><![CDATA[ 
 
 
@@ -195,42 +195,42 @@
 <p>This example is taken from <a href="https://artofproblemsolving.com/wiki/index.php/Proofs_without_words">AoPS Online</a> and the result is that sum of first <img src="https://latex.codecogs.com/png.latex?n"> odd numbers equals <img src="https://latex.codecogs.com/png.latex?n%5E2">.</p>
 <p><img src="https://latex.codecogs.com/png.latex?%201%20+%203%20+%205%20+%20%5Cldots%20+%20(2n%20-%201)%20=%20n%5E2%20"></p>
 <p>The gganimate version of the proof (using the method in <a href="https://artofproblemsolving.com/wiki/index.php/Proofs_without_words">AoPS Online</a>) is shown below (<a href="https://github.com/notesofdabbler/learn_gganimate/blob/master/proof_without_words/sum_of_odds.R">R code</a>, <a href="https://github.com/notesofdabbler/learn_gganimate/blob/master/proof_without_words/sum_of_odds.html">html file</a>)</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2020_04_26/https:/raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/sum_of_odds.gif" class="img-fluid"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2020_04_26/https:/raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/sum_of_odds.gif" class="img-fluid"></p>
 </section>
 <section id="example-2" class="level2">
 <h2 class="anchored" data-anchor-id="example-2">Example 2:</h2>
 <p>This example is also taken from <a href="https://artofproblemsolving.com/wiki/index.php/Proofs_without_words">AoPS Online</a> and the result is:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%201%5E3%20+%202%5E3%20+%20%5Cldots%20+%20(n-1)%5E3%20+%20n%5E3%20=%20(1%20+%202%20+%20%5Cldots%20+%20n)%5E2%20"></p>
 <p>The gganimate version of the proof (using the method in <a href="https://artofproblemsolving.com/wiki/index.php/Proofs_without_words">AoPS Online</a>) is shown below ( <a href="https://github.com/notesofdabbler/learn_gganimate/blob/master/proof_without_words/sum_of_cubes.R">R code</a>, <a href="https://github.com/notesofdabbler/learn_gganimate/blob/master/proof_without_words/sum_of_cubes.html">html file</a>):</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2020_04_26/https:/raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/sum_of_cubes.gif" class="img-fluid"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2020_04_26/https:/raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/sum_of_cubes.gif" class="img-fluid"></p>
 </section>
 <section id="example-3" class="level2">
 <h2 class="anchored" data-anchor-id="example-3">Example 3</h2>
 <p>This example from <a href="https://artofproblemsolving.com/wiki/index.php/Proofs_without_words">AoPS Online</a> illustrates the result</p>
 <p><img src="https://latex.codecogs.com/png.latex?%20%5Cfrac%7B1%7D%7B2%5E2%7D%20+%20%5Cfrac%7B1%7D%7B2%5E4%7D%20+%20%5Cfrac%7B1%7D%7B2%5E6%7D%20+%20%5Cfrac%7B1%7D%7B2%5E8%7D%20+%20%5Cldots%20=%20%5Cfrac%7B1%7D%7B3%7D%20"></p>
 <p>The gganimate version of the proof (using the method in <a href="https://artofproblemsolving.com/wiki/index.php/Proofs_without_words">AoPS Online</a>) is shown below ( <a href="https://github.com/notesofdabbler/learn_gganimate/blob/master/proof_without_words/infinite_series_1.R">R code</a>, <a href="https://github.com/notesofdabbler/learn_gganimate/blob/master/proof_without_words/infinite_series_1.html">html file</a>):</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2020_04_26/https:/raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/infinite_series_1.gif" class="img-fluid"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2020_04_26/https:/raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/infinite_series_1.gif" class="img-fluid"></p>
 </section>
 <section id="example-4" class="level2">
 <h2 class="anchored" data-anchor-id="example-4">Example 4</h2>
 <p>According to Pythagoras theorem, <img src="https://latex.codecogs.com/png.latex?%20a%5E2%20+%20b%5E2%20=%20c%5E2%20"> where <img src="https://latex.codecogs.com/png.latex?a">, <img src="https://latex.codecogs.com/png.latex?b">, <img src="https://latex.codecogs.com/png.latex?c"> are sides of a right angled triangle (with <img src="https://latex.codecogs.com/png.latex?c"> being the side opposite <img src="https://latex.codecogs.com/png.latex?90%5Eo"> angle)</p>
 <p>There was an illustration of the proof of pythogoras theorem in a <a href="https://www.youtube.com/watch?v=T2K11eFepcs">video</a> from <a href="http://www.eChalk.co.uk">echalk</a>.</p>
 <p>The gganimate version of the proof is shown below ( <a href="https://github.com/notesofdabbler/learn_gganimate/blob/master/proof_without_words/pythagoras_theorem.R">R code</a>, <a href="https://github.com/notesofdabbler/learn_gganimate/blob/master/proof_without_words/pythagoras_theorem.html">html file</a>)</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2020_04_26/https:/raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/pythagoras_theorem.gif" class="img-fluid"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2020_04_26/https:/raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/pythagoras_theorem.gif" class="img-fluid"></p>
 <p>In summary, it was great to use gganimate for these animations since it does all the magic with making transitions work nicely.</p>
 
 
 </section>
 
  ]]></description>
-  <guid>https://timely-narwhal-1c7288.netlify.app/posts/post_2020_04_26/index.html</guid>
+  <guid>https://www.notesofdabbler.com/posts/post_2020_04_26/index.html</guid>
   <pubDate>Sun, 26 Apr 2020 00:00:00 GMT</pubDate>
   <media:content url="https://raw.githubusercontent.com/notesofdabbler/learn_gganimate/master/proof_without_words/figures/sum_of_odds.gif" medium="image" type="image/gif"/>
 </item>
 <item>
   <title>Keeping up with Tidyverse Functions using Tidy Tuesday Screencasts</title>
   <dc:creator>Notesofdabbler</dc:creator>
-  <link>https://timely-narwhal-1c7288.netlify.app/posts/post_2019_08_06/index.html</link>
+  <link>https://www.notesofdabbler.com/posts/post_2019_08_06/index.html</link>
   <description><![CDATA[ 
 
 
@@ -244,13 +244,13 @@
 <li>Plot frequencies of function use and review functions that I am not aware of</li>
 </ul>
 <p>The html file with all the code and results is in this <a href="http://notesofdabbler.github.io/blog_notesofdabbler/getCodeFuncs.html">location</a>. The R file used to generate the html file is <a href="https://raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/getCodeFuncs.R">here</a>.</p>
-<p>The plot below shows the how many analyses used a particular package. <img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/libcntplt-1.png" class="img-fluid" width="800"></p>
+<p>The plot below shows the how many analyses used a particular package. <img src="https://www.notesofdabbler.com/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/libcntplt-1.png" class="img-fluid" width="800"></p>
 <p>The top library as tidyverse is to be expected. It is interesting that lubridate is second. I can see that broom is used quite a bit since after exploratory analysis in the screencast, David explores some models. There are several packages that I was not aware of but I will probably look up the following: widyr, fuzzyjoin, glue, janitor, patchwork and the context in which they were used in the screencast.</p>
-<p>The plot below shows the number of functions used from each package. <img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/pkgcntplt-1.png" class="img-fluid" width="800"></p>
+<p>The plot below shows the number of functions used from each package. <img src="https://www.notesofdabbler.com/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/pkgcntplt-1.png" class="img-fluid" width="800"></p>
 <p>As expected, most used functions are from <em>ggplot2</em>, <em>dplyr</em>, <em>tidyr</em> since there is lot of exploratory analysis and visualization of data in the screencasts.</p>
 <p>The next series of plots shows the individual functions used from the packages.</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-1.png" class="img-fluid" width="800"></p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-2.png" class="img-fluid" width="800"> <img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-3.png" class="img-fluid" width="800"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-1.png" class="img-fluid" width="800"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-2.png" class="img-fluid" width="800"> <img src="https://www.notesofdabbler.com/posts/post_2019_08_06/https:/raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-3.png" class="img-fluid" width="800"></p>
 <p>Based on the above figures, I am listing below some functions that I was not aware of and should learn</p>
 <ul>
 <li><em>count</em> function in <em>dplyr</em> as a easier way to count for each group or sum a variable for each group.</li>
@@ -263,14 +263,14 @@
 
 
  ]]></description>
-  <guid>https://timely-narwhal-1c7288.netlify.app/posts/post_2019_08_06/index.html</guid>
+  <guid>https://www.notesofdabbler.com/posts/post_2019_08_06/index.html</guid>
   <pubDate>Tue, 06 Aug 2019 00:00:00 GMT</pubDate>
   <media:content url="https://raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/libcntplt-1.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Fastai Collaborative Filtering with R and Reticulate</title>
   <dc:creator>Notesofdabbler</dc:creator>
-  <link>https://timely-narwhal-1c7288.netlify.app/posts/post_2018_04_01/index.html</link>
+  <link>https://www.notesofdabbler.com/posts/post_2018_04_01/index.html</link>
   <description><![CDATA[ 
 
 
@@ -288,13 +288,13 @@
 
 
  ]]></description>
-  <guid>https://timely-narwhal-1c7288.netlify.app/posts/post_2018_04_01/index.html</guid>
+  <guid>https://www.notesofdabbler.com/posts/post_2018_04_01/index.html</guid>
   <pubDate>Sun, 01 Apr 2018 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Exploring Instacart Dataset with PCA</title>
   <dc:creator>Notesofdabbler</dc:creator>
-  <link>https://timely-narwhal-1c7288.netlify.app/posts/post_2017_05_22/index.html</link>
+  <link>https://www.notesofdabbler.com/posts/post_2017_05_22/index.html</link>
   <description><![CDATA[ 
 
 
@@ -319,19 +319,19 @@
 <h2 class="anchored" data-anchor-id="pca-to-find-patterns-of-purchase-by-hour-of-day">PCA to find patterns of purchase by hour of day</h2>
 <p>The goal here is to find products with different patterns of purchase timing by hour of day with PCA. Dataset for PCA has for each product (rows), the percentage of product orders at each hour of day (column). Since all the data is in percentages, I didn’t do any further scaling of data.</p>
 <p>The plot of cumulative variance shows that first component accounts for 44% of variance, first two account for 58% and first 3 account for 67% of variance.</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2017_05_22/https:/raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-9-1.png" class="img-fluid" width="600"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2017_05_22/https:/raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-9-1.png" class="img-fluid" width="600"></p>
 <p>Next, we will look at the first two loadings since first 2 components account for 58% of variance.</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2017_05_22/https:/raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-10-1.png" class="img-fluid" width="600"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2017_05_22/https:/raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-10-1.png" class="img-fluid" width="600"></p>
 <p>First principal component loading PC1 indicates a pattern of either higher percentage of purcahses in the morning or evening. The second principal component loading indicates a pattern where there is higher purchase around 11am and 4pm. To check which product items follow these patterns, we look at products that either have high scores or low scores on a principal component. So here we take the top 20 and bottom 20 products in terms of their scores on PC1. The actual pattern still may not quite match the loading plot since the overall pattern is a combination of all principal component loadings.</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2017_05_22/https:/raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-11-1.png" class="img-fluid" width="600"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2017_05_22/https:/raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-11-1.png" class="img-fluid" width="600"></p>
 <p>Below is the table that lists the actual products that are in top and bottom scores of PC1. Ice cream purchases tend to occur more in the evening. Items like granola bars, krispie treats, apples are purchased more in the morning.</p>
-<p><img src="https://timely-narwhal-1c7288.netlify.app/posts/post_2017_05_22/https:/raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/top_bottom_20_products_PC1scores.png" class="img-fluid" width="600"></p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2017_05_22/https:/raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/top_bottom_20_products_PC1scores.png" class="img-fluid" width="600"></p>
 
 
 </section>
 
  ]]></description>
-  <guid>https://timely-narwhal-1c7288.netlify.app/posts/post_2017_05_22/index.html</guid>
+  <guid>https://www.notesofdabbler.com/posts/post_2017_05_22/index.html</guid>
   <pubDate>Mon, 22 May 2017 00:00:00 GMT</pubDate>
   <media:content url="https://raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-9-1.png" medium="image" type="image/png"/>
 </item>

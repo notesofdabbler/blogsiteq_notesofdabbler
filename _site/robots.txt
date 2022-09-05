@@ -1,1 +1,1 @@
-Sitemap: https://timely-narwhal-1c7288.netlify.app/sitemap.xml
+Sitemap: https://www.notesofdabbler.com/sitemap.xml

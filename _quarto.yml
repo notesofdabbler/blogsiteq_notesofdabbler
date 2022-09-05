@@ -3,12 +3,17 @@ project:
 
 website:
   title: "Notes of a Dabbler"
-  site-url: https://timely-narwhal-1c7288.netlify.app/
+  site-url: https://www.notesofdabbler.com/
+  description: "Blog to catalog learnings"
   navbar:
     right:
       - about.qmd
       - icon: rss
         href: index.xml
+      - text: links
+        menu: 
+          - text: R-Bloggers
+            href: https://www.r-bloggers.com/
       - icon: github
         href: https://github.com/notesofdabbler
 format:

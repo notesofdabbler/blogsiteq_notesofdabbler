@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://timely-narwhal-1c7288.netlify.app/index.html</loc>
-    <lastmod>2022-09-05T04:03:35.649Z</lastmod>
+    <lastmod>2022-09-05T04:30:58.491Z</lastmod>
   </url>
   <url>
     <loc>https://timely-narwhal-1c7288.netlify.app/posts/post_2018_04_01/index.html</loc>
@@ -26,6 +26,14 @@
   </url>
   <url>
     <loc>https://timely-narwhal-1c7288.netlify.app/posts/post_2022_09_05/index.html</loc>
-    <lastmod>2022-09-05T04:03:35.129Z</lastmod>
+    <lastmod>2022-09-05T04:30:57.831Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.notesofdabbler.com/index.html</loc>
+    <lastmod>2022-09-05T12:13:23.978Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www.notesofdabbler.com/posts/post_2022_09_05/index.html</loc>
+    <lastmod>2022-09-05T12:13:23.230Z</lastmod>
   </url>
 </urlset>
