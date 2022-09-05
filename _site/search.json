@@ -1,0 +1,114 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Notes of a Dabbler",
+    "section": "",
+    "text": "news\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nSep 4, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nSep 1, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJul 1, 2020\n\n\nNotesofdabbler\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApr 26, 2020\n\n\nNotesofdabbler\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAug 6, 2019\n\n\nNotesofdabbler\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApr 1, 2018\n\n\nNotesofdabbler\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMay 22, 2017\n\n\nNotesofdabbler\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Shankar Vaidyaraman"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "Since this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "posts/post_2017_05_22/2017-05-22-exploreInstacart.html",
+    "href": "posts/post_2017_05_22/2017-05-22-exploreInstacart.html",
+    "title": "Exploring Instacart Dataset with PCA",
+    "section": "",
+    "text": "Recently, Instacart released a dataset of ~3 million orders made by ~200,000 users at different days of week and times of day. There is also an ongoing Kaggle competition to predict which products a user will buy again. My goal here is more modest where I just wanted to explore the dataset to find patterns of purchasing behaviour by hour of day, day of week and number of days prior to current order. An example of this kind of analysis is also shown in their blog. Here I wanted to explore if I can find such kind of patters by using the very common and popular dimension reduction technique - Principal Component Analysis (PCA). There are several great resources that introduce PCA if you are not familiar with PCA. One of the resources is the set of video lectures on machine learning by Prof. Hastie and Prof. Tibshirani.\nThe general approach that I have followed is:\nSpoiler Alert: Since my analysis is basic, don’t be disappointed if there are no big Aha moments (there will be none). But I think it is still fun to see how we can extract such information directly from data.\nI downloaded the data from the following link. The data dictionary is in the following link. The full code with results is in the following location.\nBelow are some basic info on the datasets"
+  },
+  {
+    "objectID": "posts/post_2017_05_22/2017-05-22-exploreInstacart.html#pca-to-find-patterns-of-purchase-by-hour-of-day",
+    "href": "posts/post_2017_05_22/2017-05-22-exploreInstacart.html#pca-to-find-patterns-of-purchase-by-hour-of-day",
+    "title": "Exploring Instacart Dataset with PCA",
+    "section": "PCA to find patterns of purchase by hour of day",
+    "text": "PCA to find patterns of purchase by hour of day\nThe goal here is to find products with different patterns of purchase timing by hour of day with PCA. Dataset for PCA has for each product (rows), the percentage of product orders at each hour of day (column). Since all the data is in percentages, I didn’t do any further scaling of data.\nThe plot of cumulative variance shows that first component accounts for 44% of variance, first two account for 58% and first 3 account for 67% of variance.\n\nNext, we will look at the first two loadings since first 2 components account for 58% of variance.\n\nFirst principal component loading PC1 indicates a pattern of either higher percentage of purcahses in the morning or evening. The second principal component loading indicates a pattern where there is higher purchase around 11am and 4pm. To check which product items follow these patterns, we look at products that either have high scores or low scores on a principal component. So here we take the top 20 and bottom 20 products in terms of their scores on PC1. The actual pattern still may not quite match the loading plot since the overall pattern is a combination of all principal component loadings.\n\nBelow is the table that lists the actual products that are in top and bottom scores of PC1. Ice cream purchases tend to occur more in the evening. Items like granola bars, krispie treats, apples are purchased more in the morning."
+  },
+  {
+    "objectID": "posts/post_2018_04_01/index.html",
+    "href": "posts/post_2018_04_01/index.html",
+    "title": "Fastai Collaborative Filtering with R and Reticulate",
+    "section": "",
+    "text": "I wanted to learn reticulate by trying to create a R version of one of the python notebooks from that class. The class covers the topic of collaborative filtering in lecture 5 and lecture 6. The dataset used is a sample of movielens dataset where about ~670 users have rated ~9000 movies. The objective is to develop a model to predict the rating that a user will give for a particular movie.\nThe Jupyter notebook for this topic is divided into 2 portions:\n\nIn the first half, the model is developed using just high level fastai functions. The R notebook for the first half is located here.\nIn the second half, the model is developed from scratch and 3 different types of models are discussed going from matrix factorization type model to deep learning type models. The R notebook for the second half is located here.\n\nSince the first half involved mainly python functions from fastai library, it seemed like a good use case for reticulate since we could use reticulate just for model development and use R functions for other pre and post processing tasks. The second half involved model building from scratch. In pyTorch, custom models need to be written as python classes. While it was still possible to use reticulate in this case, this may not be the ideal use case since it might be better for somebody developing custom models to do the whole work in python. But once they wrap it into a python package, it is easier to use from R. Overall, reticulate was great to work with and it made it very easy to translate a python function to an equivalent R function. It is a great addition to the R packages."
+  },
+  {
+    "objectID": "posts/post_2017_05_22/index.html",
+    "href": "posts/post_2017_05_22/index.html",
+    "title": "Exploring Instacart Dataset with PCA",
+    "section": "",
+    "text": "Recently, Instacart released a dataset of ~3 million orders made by ~200,000 users at different days of week and times of day. There is also an ongoing Kaggle competition to predict which products a user will buy again. My goal here is more modest where I just wanted to explore the dataset to find patterns of purchasing behaviour by hour of day, day of week and number of days prior to current order. An example of this kind of analysis is also shown in their blog. Here I wanted to explore if I can find such kind of patters by using the very common and popular dimension reduction technique - Principal Component Analysis (PCA). There are several great resources that introduce PCA if you are not familiar with PCA. One of the resources is the set of video lectures on machine learning by Prof. Hastie and Prof. Tibshirani.\nThe general approach that I have followed is:\nSpoiler Alert: Since my analysis is basic, don’t be disappointed if there are no big Aha moments (there will be none). But I think it is still fun to see how we can extract such information directly from data.\nI downloaded the data from the following link. The data dictionary is in the following link. The full code with results is in the following location.\nBelow are some basic info on the datasets"
+  },
+  {
+    "objectID": "posts/post_2017_05_22/index.html#pca-to-find-patterns-of-purchase-by-hour-of-day",
+    "href": "posts/post_2017_05_22/index.html#pca-to-find-patterns-of-purchase-by-hour-of-day",
+    "title": "Exploring Instacart Dataset with PCA",
+    "section": "PCA to find patterns of purchase by hour of day",
+    "text": "PCA to find patterns of purchase by hour of day\nThe goal here is to find products with different patterns of purchase timing by hour of day with PCA. Dataset for PCA has for each product (rows), the percentage of product orders at each hour of day (column). Since all the data is in percentages, I didn’t do any further scaling of data.\nThe plot of cumulative variance shows that first component accounts for 44% of variance, first two account for 58% and first 3 account for 67% of variance.\n\nNext, we will look at the first two loadings since first 2 components account for 58% of variance.\n\nFirst principal component loading PC1 indicates a pattern of either higher percentage of purcahses in the morning or evening. The second principal component loading indicates a pattern where there is higher purchase around 11am and 4pm. To check which product items follow these patterns, we look at products that either have high scores or low scores on a principal component. So here we take the top 20 and bottom 20 products in terms of their scores on PC1. The actual pattern still may not quite match the loading plot since the overall pattern is a combination of all principal component loadings.\n\nBelow is the table that lists the actual products that are in top and bottom scores of PC1. Ice cream purchases tend to occur more in the evening. Items like granola bars, krispie treats, apples are purchased more in the morning."
+  },
+  {
+    "objectID": "posts/post_2019_08_06/index.html",
+    "href": "posts/post_2019_08_06/index.html",
+    "title": "Keeping up with Tidyverse Functions using Tidy Tuesday Screencasts",
+    "section": "",
+    "text": "The approach I took is:\n\nGet all the Rmd analysis files from the screencast github repo.\nExtract the list of libraries and functions used in each .Rmd file\nPlot frequencies of function use and review functions that I am not aware of\n\nThe html file with all the code and results is in this location. The R file used to generate the html file is here.\nThe plot below shows the how many analyses used a particular package. \nThe top library as tidyverse is to be expected. It is interesting that lubridate is second. I can see that broom is used quite a bit since after exploratory analysis in the screencast, David explores some models. There are several packages that I was not aware of but I will probably look up the following: widyr, fuzzyjoin, glue, janitor, patchwork and the context in which they were used in the screencast.\nThe plot below shows the number of functions used from each package. \nAs expected, most used functions are from ggplot2, dplyr, tidyr since there is lot of exploratory analysis and visualization of data in the screencasts.\nThe next series of plots shows the individual functions used from the packages.\n\n \nBased on the above figures, I am listing below some functions that I was not aware of and should learn\n\ncount function in dplyr as a easier way to count for each group or sum a variable for each group.\ngeom_col function in ggplot2 for bar graphs\nI became aware of forcats package for working with factors. fct_reorder and fct_lump from the package were used frequently.\ntidyr functions - nest/unnest, crossing, separate_rows\nI realized that I know only a few functions in stringr and should learn more about several functions that were used in the screencast."
+  },
+  {
+    "objectID": "posts/post_2020_04_26/index.html",
+    "href": "posts/post_2020_04_26/index.html",
+    "title": "Proofs without Words using gganimate",
+    "section": "",
+    "text": "I recently watched the 2 part workshop (part 1, part 2) on ggplot2 and extensions given by Thomas Lin Pedersen. First of, it was really nice of Thomas to give the close to 4 hour workshop for the benefit of the community. I personally learnt a lot from it. I wanted to try out gganimate extension that was covered during the workshop.\nThere are several resources on the web that show animations/illustrations of proofs of mathematical identities and theorems without words (or close to it). I wanted to take a few of those examples and use gganimate to recreate the illustration. This was a fun way for me to try out gganimate."
+  },
+  {
+    "objectID": "posts/post_2020_04_26/index.html#example-1",
+    "href": "posts/post_2020_04_26/index.html#example-1",
+    "title": "Proofs without Words using gganimate",
+    "section": "Example 1:",
+    "text": "Example 1:\nThis example is taken from AoPS Online and the result is that sum of first \\(n\\) odd numbers equals \\(n^2\\).\n\\[ 1 + 3 + 5 + \\ldots + (2n - 1) = n^2 \\]\nThe gganimate version of the proof (using the method in AoPS Online) is shown below (R code, html file)"
+  },
+  {
+    "objectID": "posts/post_2020_04_26/index.html#example-2",
+    "href": "posts/post_2020_04_26/index.html#example-2",
+    "title": "Proofs without Words using gganimate",
+    "section": "Example 2:",
+    "text": "Example 2:\nThis example is also taken from AoPS Online and the result is:\n\\[ 1^3 + 2^3 + \\ldots + (n-1)^3 + n^3 = (1 + 2 + \\ldots + n)^2 \\]\nThe gganimate version of the proof (using the method in AoPS Online) is shown below ( R code, html file):"
+  },
+  {
+    "objectID": "posts/post_2020_04_26/index.html#example-3",
+    "href": "posts/post_2020_04_26/index.html#example-3",
+    "title": "Proofs without Words using gganimate",
+    "section": "Example 3",
+    "text": "Example 3\nThis example from AoPS Online illustrates the result\n\\[ \\frac{1}{2^2} + \\frac{1}{2^4} + \\frac{1}{2^6} + \\frac{1}{2^8} + \\ldots = \\frac{1}{3} \\]\nThe gganimate version of the proof (using the method in AoPS Online) is shown below ( R code, html file):"
+  },
+  {
+    "objectID": "posts/post_2020_04_26/index.html#example-4",
+    "href": "posts/post_2020_04_26/index.html#example-4",
+    "title": "Proofs without Words using gganimate",
+    "section": "Example 4",
+    "text": "Example 4\nAccording to Pythagoras theorem, \\[ a^2 + b^2 = c^2 \\] where \\(a\\), \\(b\\), \\(c\\) are sides of a right angled triangle (with \\(c\\) being the side opposite \\(90^o\\) angle)\nThere was an illustration of the proof of pythogoras theorem in a video from echalk.\nThe gganimate version of the proof is shown below ( R code, html file)\n\nIn summary, it was great to use gganimate for these animations since it does all the magic with making transitions work nicely."
+  },
+  {
+    "objectID": "posts/post_2020_07_01/index.html",
+    "href": "posts/post_2020_07_01/index.html",
+    "title": "Using Pyomo from R through the magic of Reticulate",
+    "section": "",
+    "text": "My goal in this blog is to see how far I can get in terms of using Pyomo from R using the reticulate package. The simplest option would be to develop the model in pyomo and call it from R using reticulate. However, it still requires writing the pyomo model in python. I want to use reticulate to write the pyomo model using R. The details of the blog post (along with code) are in this location.\n\nSummary\nHere I covered two examples to show how to develop a pyomo model from R using the reticulate package. While it might still be easier to develop the pyomo model in python (since it was meant to be that way), I found that it is possible to develop pyomo models in R also fairly easily albeit with some modifications (some maybe less elegant compred to the python counterpart). It may still be better to develop more involved pyomo models in python but reticulate offers a way to develop simple to intermediate levels models directly in R. I am summarizing key learnings:\n\nNeed to overload arithmetic operators to enable things like addition etc. between pyomo objects\nUse the option convert = FALSE to retain pyomo objects as python objects potentially avoid issues that are hard to troubleshoot.\nLack of list comprehension in R makes some of the constraint specifications more verbose but still works.\nNeed to be careful about indexing (sometimes need to explicitly specify a tuple and sometimes not)"
+  }
+]

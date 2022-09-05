@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Notesofdabbler">
+<meta name="dcterms.date" content="2019-08-06">
+
+<title>Notes of a Dabbler - Keeping up with Tidyverse Functions using Tidy Tuesday Screencasts</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Notes of a Dabbler</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/notesofdabbler"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Keeping up with Tidyverse Functions using Tidy Tuesday Screencasts</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">R</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Notesofdabbler </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 6, 2019</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>David Robinson has done several <a href="https://www.youtube.com/channel/UCeiiqmVK07qhY-wvg3IZiZQ">screencasts</a> where he analyzes a Tidy Tuesday dataset live. I have listened to a few of them and found them very interesting and instructive. As I don’t use R on a daily basis, I have not kept up with what the latest is in Tidyverse. So when I listened to his screencasts, I learnt functions that I was not aware of. Since I sometimes forget which function I learnt, I wanted to extract all the functions used in the screencasts so that it is easier for me to refer to the ones that I am not aware of but should learn.</p>
+<p>The approach I took is:</p>
+<ul>
+<li>Get all the Rmd analysis files from the screencast github repo.</li>
+<li>Extract the list of libraries and functions used in each .Rmd file</li>
+<li>Plot frequencies of function use and review functions that I am not aware of</li>
+</ul>
+<p>The html file with all the code and results is in this <a href="http://notesofdabbler.github.io/blog_notesofdabbler/getCodeFuncs.html">location</a>. The R file used to generate the html file is <a href="https://raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/getCodeFuncs.R">here</a>.</p>
+<p>The plot below shows the how many analyses used a particular package. <img src="https://raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/libcntplt-1.png" class="img-fluid" width="800"></p>
+<p>The top library as tidyverse is to be expected. It is interesting that lubridate is second. I can see that broom is used quite a bit since after exploratory analysis in the screencast, David explores some models. There are several packages that I was not aware of but I will probably look up the following: widyr, fuzzyjoin, glue, janitor, patchwork and the context in which they were used in the screencast.</p>
+<p>The plot below shows the number of functions used from each package. <img src="https://raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/pkgcntplt-1.png" class="img-fluid" width="800"></p>
+<p>As expected, most used functions are from <em>ggplot2</em>, <em>dplyr</em>, <em>tidyr</em> since there is lot of exploratory analysis and visualization of data in the screencasts.</p>
+<p>The next series of plots shows the individual functions used from the packages.</p>
+<p><img src="https://raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-1.png" class="img-fluid" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-2.png" class="img-fluid" width="800"> <img src="https://raw.githubusercontent.com/notesofdabbler/blog_notesofdabbler/master/popularTidyVerseFuncs/figure/fncountplt-3.png" class="img-fluid" width="800"></p>
+<p>Based on the above figures, I am listing below some functions that I was not aware of and should learn</p>
+<ul>
+<li><em>count</em> function in <em>dplyr</em> as a easier way to count for each group or sum a variable for each group.</li>
+<li><em>geom_col</em> function in <em>ggplot2</em> for bar graphs</li>
+<li>I became aware of <em>forcats</em> package for working with factors. <em>fct_reorder</em> and <em>fct_lump</em> from the package were used frequently.</li>
+<li><em>tidyr</em> functions - <em>nest/unnest</em>, <em>crossing</em>, <em>separate_rows</em></li>
+<li>I realized that I know only a few functions in <em>stringr</em> and should learn more about several functions that were used in the screencast.</li>
+</ul>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

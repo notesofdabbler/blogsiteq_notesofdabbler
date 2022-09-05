@@ -1,0 +1,18 @@
+---
+title: 'Fastai Collaborative Filtering with R and Reticulate'
+author: 'Notesofdabbler'
+date: '2018-04-01'
+---
+
+Jeremy Howard and Rachel Thomas are founders of [fast.ai](http://www.fast.ai/) whose aim is to make deep learning accessible to all. They offer a course called [Practical Deep Learning for Coders (Part 1)](http://course.fast.ai/). The last session, taught by Jeremy, was in Fall 2017 and the videos were released early January 2018. Their approach is top down by showing different applications first as black boxes followed by progressive peeling of the black box to teach the details of how things work. The course uses python and they have developed a python library [fastai](https://github.com/fastai/fastai/tree/master/fastai) that is a wrapper around [PyTorch](http://pytorch.org/).
+
+I wanted to learn reticulate by trying to create a R version of one of the python notebooks from that class. The class covers the topic of collaborative filtering in [lecture 5](http://course.fast.ai/lessons/lesson5.html) and [lecture 6](http://course.fast.ai/lessons/lesson6.html). The dataset used is a sample of [movielens dataset](http://files.grouplens.org/datasets/movielens/ml-latest-small.zip) where about ~670 users have rated ~9000 movies. The objective is to develop a model to predict the rating that a user will give for a particular movie. 
+
+The [Jupyter notebook](https://github.com/fastai/fastai/blob/master/courses/dl1/lesson5-movielens.ipynb) for this topic is divided into 2 portions:
+
+* In the first half, the model is developed using just high level fastai functions. The R notebook for the first half is located [here](https://notesofdabbler.github.io/fastai_dl1_withR/movieLens.nb.html).
+* In the second half, the model is developed from scratch and 3 different types of models are discussed going from matrix factorization type model to deep learning type models. The R notebook for the second half is located [here](https://notesofdabbler.github.io/fastai_dl1_withR/movieLens_from_Scratch.nb.html).
+
+Since the first half involved mainly python functions from fastai library, it seemed like a good use case for reticulate since we could use reticulate just for model development and use R functions for other pre and post processing tasks. The second half involved model building from scratch. In pyTorch, custom models need to be written as python classes. While it was still possible to use reticulate in this case, this may not be the ideal use case since it might be better for somebody developing custom models to do the whole work in python. But once they wrap it into a python package, it is easier to use from R. Overall, reticulate was great to work with and it made it very easy to translate a python function to an equivalent R function. It is a great addition to the R packages.
+
+

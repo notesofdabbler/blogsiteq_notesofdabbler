@@ -1,0 +1,17 @@
+project:
+  type: website
+
+website:
+  title: "Notes of a Dabbler"
+  navbar:
+    right:
+      - about.qmd
+      - icon: github
+        href: https://github.com/notesofdabbler
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+
+
+

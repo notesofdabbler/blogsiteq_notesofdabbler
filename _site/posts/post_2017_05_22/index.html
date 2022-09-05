@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Notesofdabbler">
+<meta name="dcterms.date" content="2017-05-22">
+
+<title>Notes of a Dabbler - Exploring Instacart Dataset with PCA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Notes of a Dabbler</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html">About</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/notesofdabbler"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Exploring Instacart Dataset with PCA</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Notesofdabbler </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 22, 2017</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Recently, <a href="https://www.instacart.com/">Instacart</a> released a <a href="https://tech.instacart.com/3-million-instacart-orders-open-sourced-d40d29ead6f2">dataset</a> of ~3 million orders made by ~200,000 users at different days of week and times of day. There is also an ongoing <a href="https://www.kaggle.com/c/instacart-market-basket-analysis">Kaggle competition</a> to predict which products a user will buy again. My goal here is more modest where I just wanted to explore the dataset to find patterns of purchasing behaviour by hour of day, day of week and number of days prior to current order. An <a href="https://cdn-images-1.medium.com/max/800/1*wKfV6OV-_1Ipwrl7AjjSuw.png">example</a> of this kind of analysis is also shown in their blog. Here I wanted to explore if I can find such kind of patters by using the very common and popular dimension reduction technique - Principal Component Analysis (PCA). There are several great resources that introduce PCA if you are not familiar with PCA. One of the resources is the set of <a href="https://www.r-bloggers.com/in-depth-introduction-to-machine-learning-in-15-hours-of-expert-videos/">video lectures</a> on machine learning by Prof.&nbsp;Hastie and Prof.&nbsp;Tibshirani.</p>
+<p>The general approach that I have followed is:</p>
+<ul>
+<li>Do principal component analysis on the data (each row is a product, each column is a time period (hour of day, day of week or number of days prior to current order))</li>
+<li>Review the loading plots of first two principal components to see purchase patterns</li>
+<li>Identify top 20 products that have high scores in either first or the second principal component</li>
+<li>Check the purchasing pattern by checking the average number of orders for the products that were identified as having top scores in one of the principal components.</li>
+</ul>
+<p><strong>Spoiler Alert</strong>: Since my analysis is basic, don’t be disappointed if there are no big Aha moments (there will be none). But I think it is still fun to see how we can extract such information directly from data.</p>
+<p>I downloaded the data from the following <a href="https://www.instacart.com/datasets/grocery-shopping-2017">link</a>. The data dictionary is in the following <a href="https://gist.github.com/jeremystan/c3b39d947d9b88b3ccff3147dbcf6c6b">link</a>. The full code with results is in the following <a href="http://notesofdabbler.github.io/blog_notesofdabbler/exploreData_PCA.html">location</a>.</p>
+<p>Below are some basic info on the datasets</p>
+<ul>
+<li>The number of users are ~200,000.</li>
+<li>The number of orders are ~3.4M. The number of products are ~50K or which ~5K account for 80% of total orders</li>
+</ul>
+<section id="pca-to-find-patterns-of-purchase-by-hour-of-day" class="level2">
+<h2 class="anchored" data-anchor-id="pca-to-find-patterns-of-purchase-by-hour-of-day">PCA to find patterns of purchase by hour of day</h2>
+<p>The goal here is to find products with different patterns of purchase timing by hour of day with PCA. Dataset for PCA has for each product (rows), the percentage of product orders at each hour of day (column). Since all the data is in percentages, I didn’t do any further scaling of data.</p>
+<p>The plot of cumulative variance shows that first component accounts for 44% of variance, first two account for 58% and first 3 account for 67% of variance.</p>
+<p><img src="https://raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-9-1.png" class="img-fluid" width="600"></p>
+<p>Next, we will look at the first two loadings since first 2 components account for 58% of variance.</p>
+<p><img src="https://raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-10-1.png" class="img-fluid" width="600"></p>
+<p>First principal component loading PC1 indicates a pattern of either higher percentage of purcahses in the morning or evening. The second principal component loading indicates a pattern where there is higher purchase around 11am and 4pm. To check which product items follow these patterns, we look at products that either have high scores or low scores on a principal component. So here we take the top 20 and bottom 20 products in terms of their scores on PC1. The actual pattern still may not quite match the loading plot since the overall pattern is a combination of all principal component loadings.</p>
+<p><img src="https://raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/unnamed-chunk-11-1.png" class="img-fluid" width="600"></p>
+<p>Below is the table that lists the actual products that are in top and bottom scores of PC1. Ice cream purchases tend to occur more in the evening. Items like granola bars, krispie treats, apples are purchased more in the morning.</p>
+<p><img src="https://raw.githubusercontent.com/notesofdabbler/exploreInstacart/master/figure/top_bottom_20_products_PC1scores.png" class="img-fluid" width="600"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
