@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Notes of a Dabbler</title>
+<link>https://www.notesofdabbler.com/index.html#category=R</link>
+<atom:link href="https://www.notesofdabbler.com/index-r.xml" rel="self" type="application/rss+xml"/>
+<description>Blog to catalog learnings</description>
+<generator>quarto-1.0.36</generator>
+<lastBuildDate>Mon, 05 Sep 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Exploring OMPR with HiGHS solver</title>
+  <dc:creator>Notesofdabbler</dc:creator>
+  <link>https://www.notesofdabbler.com/posts/post_2022_09_05/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>There is a class of software for modeling optimization problems referred to as algebraic modeling systems which provide a unified interface to formulate optimization problems in a manner that is close to mathematical depiction and have the ability to link to different types of solvers (sparing the user from solver specific ways of formulating the problem). Both commercial and open source options are available. <a href="https://www.gams.com/">GAMS</a> and <a href="https://ampl.com/">AMPL</a> are examples of commercial options. The popular open source options are <a href="https://jump.dev/JuMP.jl/stable/">JuMP</a> in Julia and <a href="http://www.pyomo.org/">Pyomo</a> in python. I have typically used Pyomo in Python but have <a href="https://notesofdabbler.github.io/R_pyomo/2020_07_01_r_pyomo_blogpost.html">explored</a> using it from R. I recently became aware of algebraic modeling system in R provided by <a href="https://dirkschumacher.github.io/ompr/">OMPR</a> package.</p>
+<p>There are commercial and open-source options available for solvers also. For a class of optimization problems referred to as Mixed Integer Linear Programs (MILP), the commercial solvers such as <a href="https://www.ibm.com/analytics/cplex-optimizer">CPLEX</a>, and <a href="https://www.gurobi.com/">GUROBI</a> perform significantly better than open source solvers such as <a href="https://www.gnu.org/software/glpk/">glpk</a>, and <a href="https://github.com/coin-or/Cbc">CBC</a>. A new open-source solver <a href="https://highs.dev/">HiGHS</a> has been developed recently that has generated quite a bit of buzz and by different accounts looks like a promising option. There is now a <a href="https://cran.r-project.org/web/packages/highs/index.html">highs</a> package in R that can call the HiGHS solver.</p>
+<p>In this blog, I wanted to explore using OMPR modeling system with HiGHS solver by using it to solve a few examples of LP/MILP problems.</p>
+<section id="example-1-example-from-highs-package" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-example-from-highs-package">Example 1: Example from highs package</h3>
+<p>Here I want to just describe the example in mathematical notation and show how OMPR model is close to mathematical notation. The full details of this example are in this <a href="https://notesofdabbler.github.io/optwithR/highs_example_ompr.html">location</a>.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<section id="example-problem-in-highs-package" class="level4">
+<h4 class="anchored" data-anchor-id="example-problem-in-highs-package">Example Problem in highs package</h4>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bll%7D%0A%5Cmin%20&amp;%20x_0%20+%20x_1%20+%203%20%5C%5C%0A&amp;%20x_1%20%5Cleq%207%20%5C%5C%0A&amp;%205%20%5Cleq%20x_0%20+%202x_1%20%5Cleq%2015%20%5C%5C%0A&amp;%206%20%5Cleq%203x_0%20+%202x_1%20%5C%5C%0A&amp;%200%20%5Cleq%20x_0%20%5Cleq%204%20%5C%5C%0A&amp;%201%20%5Cleq%20x_1%0A%5Cend%7Barray%7D%0A"></p>
+</section>
+</div><div class="column" style="width:60%;">
+<section id="ompr-model" class="level4">
+<h4 class="anchored" data-anchor-id="ompr-model">OMPR model</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">mdl <span class="ot" style="color: #003B4F;">=</span> <span class="fu" style="color: #4758AB;">MIPModel</span>() <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb1-2">      <span class="fu" style="color: #4758AB;">add_variable</span>(x0, <span class="at" style="color: #657422;">lb =</span> <span class="dv" style="color: #AD0000;">0</span>, <span class="at" style="color: #657422;">ub =</span> <span class="dv" style="color: #AD0000;">4</span>, <span class="at" style="color: #657422;">type =</span> <span class="st" style="color: #20794D;">"continuous"</span>) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb1-3">      <span class="fu" style="color: #4758AB;">add_variable</span>(x1, <span class="at" style="color: #657422;">lb =</span> <span class="dv" style="color: #AD0000;">1</span>, <span class="at" style="color: #657422;">type =</span> <span class="st" style="color: #20794D;">"continuous"</span>) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb1-4">      <span class="fu" style="color: #4758AB;">set_objective</span>(x0<span class="sc" style="color: #5E5E5E;">+</span>x1<span class="sc" style="color: #5E5E5E;">+</span><span class="dv" style="color: #AD0000;">3</span>) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb1-5">      <span class="fu" style="color: #4758AB;">add_constraint</span>(x1 <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">7</span>) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb1-6">      <span class="fu" style="color: #4758AB;">add_constraint</span>(x0 <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">2</span><span class="sc" style="color: #5E5E5E;">*</span>x1 <span class="sc" style="color: #5E5E5E;">&lt;=</span> <span class="dv" style="color: #AD0000;">15</span>) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb1-7">      <span class="fu" style="color: #4758AB;">add_constraint</span>(x0 <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">2</span><span class="sc" style="color: #5E5E5E;">*</span>x1 <span class="sc" style="color: #5E5E5E;">&gt;=</span> <span class="dv" style="color: #AD0000;">5</span>) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb1-8">      <span class="fu" style="color: #4758AB;">add_constraint</span>(<span class="dv" style="color: #AD0000;">3</span><span class="sc" style="color: #5E5E5E;">*</span>x0 <span class="sc" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">2</span><span class="sc" style="color: #5E5E5E;">*</span>x1 <span class="sc" style="color: #5E5E5E;">&gt;=</span> <span class="dv" style="color: #AD0000;">6</span>)</span></code></pre></div>
+</div>
+</section>
+</div>
+</div>
+<p>OMPR integrates with <a href="https://cran.r-project.org/web/packages/ROI/index.html">ROI</a> package to solve an optimization model since ROI package has several solver plugins. However, highs solver doesn’t appear to have a ROI plugin yet.</p>
+<p>The highs solver uses the following representation of the optimization problem:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bll%7D%0A%5Cmin%20&amp;Lx%20+%20x%5EtQx%20+%20offset%20%5C%5C%0A&amp;lhs%20%5Cleq%20Ax%20%5Cleq%20rhs%20%5C%5C%0A&amp;lower%20%5Cleq%20x%20%5Cleq%20upper%20%5C%5C%0A&amp;x%20%5Cin%20%5C%7Binteger,%20continuous%5C%7D%0A%5Cend%7Barray%7D%0A"></p>
+<p>So I <a href="https://github.com/notesofdabbler/optwithR/blob/main/ompr_helperfns.R">adapted</a> the <code>as_ROI_model</code> function from package ompr.ROI to provide the information needed <img src="https://latex.codecogs.com/png.latex?(L,%20offset,%20A,%20lhs,%20rhs,%20lower,%20upper)"> and type of each <img src="https://latex.codecogs.com/png.latex?x"> variable for calling solver in highs package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="co" style="color: #5E5E5E;"># Convert ompr model to highs model</span></span>
+<span id="cb2-2">highs_mdl <span class="ot" style="color: #003B4F;">=</span> <span class="fu" style="color: #4758AB;">as_highs_model</span>(mdl)</span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;"># solve highs model</span></span>
+<span id="cb2-4">s <span class="ot" style="color: #003B4F;">&lt;-</span> <span class="fu" style="color: #4758AB;">highs_solve</span>(<span class="at" style="color: #657422;">L =</span> <span class="fu" style="color: #4758AB;">as.numeric</span>(highs_mdl<span class="sc" style="color: #5E5E5E;">$</span>L), <span class="at" style="color: #657422;">lower =</span> highs_mdl<span class="sc" style="color: #5E5E5E;">$</span>lower, <span class="at" style="color: #657422;">upper =</span> highs_mdl<span class="sc" style="color: #5E5E5E;">$</span>upper,</span>
+<span id="cb2-5">                 <span class="at" style="color: #657422;">A =</span> highs_mdl<span class="sc" style="color: #5E5E5E;">$</span>A, <span class="at" style="color: #657422;">lhs =</span> highs_mdl<span class="sc" style="color: #5E5E5E;">$</span>lhs, <span class="at" style="color: #657422;">rhs =</span> highs_mdl<span class="sc" style="color: #5E5E5E;">$</span>rhs,</span>
+<span id="cb2-6">                 <span class="at" style="color: #657422;">offset =</span> highs_mdl<span class="sc" style="color: #5E5E5E;">$</span>offset)</span>
+<span id="cb2-7">s[[<span class="st" style="color: #20794D;">"status"</span>]]</span>
+<span id="cb2-8">s[[<span class="st" style="color: #20794D;">"objective_value"</span>]]</span>
+<span id="cb2-9">s[[<span class="st" style="color: #20794D;">"primal_solution"</span>]]</span></code></pre></div>
+</div>
+<p>Solving the above problem results in an objective value of 5.75 and solution of (0.5, 2.25)</p>
+</section>
+<section id="example-2-transportation-problem" class="level3">
+<h3 class="anchored" data-anchor-id="example-2-transportation-problem">Example 2: Transportation Problem</h3>
+<p>This example discusses a transporation problem from <a href="https://www.gams.com/latest/gamslib_ml/libhtml/gamslib_trnsport.html">GAMS model library</a> where the goal is to find the minimum cost way to meet market demand with available plant capacity. We just show how the OMPR package can handle variables involving indices using this example. The full description of this example is in this <a href="https://notesofdabbler.github.io/optwithR/gms_trnsprt_ompr.html">location</a>.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs"><li class="nav-item"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" aria-controls="tabset-1-1" aria-selected="true">Mathematical Formulation</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" aria-controls="tabset-1-2" aria-selected="false">Model build using OMPR</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" aria-labelledby="tabset-1-1-tab">
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bllr%7D%0A%5Cmin%20&amp;%5Csum_%7Bp=1%7D%5EP%5Csum_%7Bm=1%7D%5EMc_%7Bpm%7Dx_%7Bpm%7D%20&amp;%20(a)%20%5C%5C%0A&amp;%5Csum_%7Bm=1%7D%5EMx_%7Bpm%7D%20%5Cleq%20cap_p,%20%5C;p=1,2,%5Cldots,P%20%20&amp;%20(b)%5C%5C%0A&amp;%5Csum_%7Bp=1%7D%5EPx_%7Bpm%7D%20%5Cgeq%20dem_m,%20%5C;m=1,2,%5Cldots,M%20&amp;%20(c)%20%5C%5C%0A&amp;x_%7Bpm%7D%20%5Cgeq%200,%20%5C;p=1,2,%5Cldots,P;%5C;m=1,2,%5Cldots,M%0A%5Cend%7Barray%7D%0A"></p>
+<p>where</p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?x_%7Bpm%7D"> is the quantity to be shipped from plant <img src="https://latex.codecogs.com/png.latex?p"> to market <img src="https://latex.codecogs.com/png.latex?m"> (decision variable)</li>
+<li>Objective (a) is to minimize shipping cost</li>
+<li>Constraint (b) ensures that total supply from a plant is below capacity</li>
+<li>Constraint (c) ensures that demand for each market is met.</li>
+</ul>
+</div>
+<div id="tabset-1-2" class="tab-pane" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">np <span class="ot" style="color: #003B4F;">=</span> <span class="fu" style="color: #4758AB;">length</span>(plants)</span>
+<span id="cb3-2">nm <span class="ot" style="color: #003B4F;">=</span> <span class="fu" style="color: #4758AB;">length</span>(mkts)</span>
+<span id="cb3-3"><span class="co" style="color: #5E5E5E;"># create ompr model</span></span>
+<span id="cb3-4">mdl <span class="ot" style="color: #003B4F;">=</span> <span class="fu" style="color: #4758AB;">MIPModel</span>() <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb3-5">  <span class="fu" style="color: #4758AB;">add_variable</span>(x[i, j], <span class="at" style="color: #657422;">i=</span><span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>np, <span class="at" style="color: #657422;">j=</span><span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nm, <span class="at" style="color: #657422;">type =</span> <span class="st" style="color: #20794D;">"continuous"</span>,<span class="at" style="color: #657422;">lb =</span> <span class="dv" style="color: #AD0000;">0</span>) <span class="sc" style="color: #5E5E5E;">%&gt;%</span></span>
+<span id="cb3-6">  <span class="co" style="color: #5E5E5E;"># objective: min cost</span></span>
+<span id="cb3-7">  <span class="fu" style="color: #4758AB;">set_objective</span>(<span class="fu" style="color: #4758AB;">sum_over</span>(<span class="fu" style="color: #4758AB;">cost</span>(i, j) <span class="sc" style="color: #5E5E5E;">*</span> x[i, j], <span class="at" style="color: #657422;">i =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>np, <span class="at" style="color: #657422;">j =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nm)) <span class="sc" style="color: #5E5E5E;">%&gt;%</span> </span>
+<span id="cb3-8">  <span class="co" style="color: #5E5E5E;"># supply from each plant is below capacity</span></span>
+<span id="cb3-9">  <span class="fu" style="color: #4758AB;">add_constraint</span>(<span class="fu" style="color: #4758AB;">sum_over</span>(x[i, j], <span class="at" style="color: #657422;">j =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nm) <span class="sc" style="color: #5E5E5E;">&lt;=</span> cap[i], <span class="at" style="color: #657422;">i =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>np) <span class="sc" style="color: #5E5E5E;">%&gt;%</span>  </span>
+<span id="cb3-10">  <span class="co" style="color: #5E5E5E;"># supply to each market meets demand</span></span>
+<span id="cb3-11">  <span class="fu" style="color: #4758AB;">add_constraint</span>(<span class="fu" style="color: #4758AB;">sum_over</span>(x[i, j], <span class="at" style="color: #657422;">i =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>np) <span class="sc" style="color: #5E5E5E;">&gt;=</span> dem[j], <span class="at" style="color: #657422;">j =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nm)</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>The figure on the left show the supply network (plants on top and markets below with numbers being capacity for plants and demand for markets). The figure on the right shows the solution where Chicago market is supplied by Seattle plant and San Diego plant supplies both New York and Topeka markets.</p>
+<div class="columns">
+<div class="column border">
+<p><em>Network Information</em> <img src="https://www.notesofdabbler.com/posts/post_2022_09_05/network_info.png" class="img-fluid"></p>
+</div><div class="column border">
+<p><em>Solution</em> <img src="https://www.notesofdabbler.com/posts/post_2022_09_05/network_soln.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="example-3-map-coloring-problem" class="level3">
+<h3 class="anchored" data-anchor-id="example-3-map-coloring-problem">Example 3: Map Coloring Problem</h3>
+<p>This example discusses a map coloring problem where the goal is to use the minimum number of colors so that no two adjacent states in the US map have the same color. In this example also, I am just showing the mathematical formulation and OMPR model. The full description of this example is in this <a href="https://notesofdabbler.github.io/optwithR/map_colorig_ompr.html">location</a>.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs"><li class="nav-item"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" aria-controls="tabset-2-1" aria-selected="true">Mathematical Formulation</a></li><li class="nav-item"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" aria-controls="tabset-2-2" aria-selected="false">Model build using OMPR</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" aria-labelledby="tabset-2-1-tab">
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Barray%7D%7Bllr%7D%0A%5Cmin%20&amp;%20%5Csum_%7Bc=1%7D%5ECy_c%20&amp;%20(a)%5C%5C%0A&amp;%20%5Csum_%7Bc=1%7D%5ECx_%7Bic%7D%20=%201,%20%5C;i=1,2,%5Cldots,N%20&amp;%20(b)%5C%5C%0A&amp;%20x_%7Bic%7D%20+%20x_%7Bjc%7D%20%5Cleq%20y_c,%20%5C;%20%5Cmbox%7Bwhen%20%7Di,%20j%20%5Cmbox%7B%20are%20adjacent%7D%20&amp;%20(c)%5C%5C%0A&amp;%20x_%7Bic%7D%20%5C;%20binary%20%5C%5C%0A&amp;%20y_c%20%5C;%20binary%0A%5Cend%7Barray%7D%0A"></p>
+<p>where:</p>
+<ul>
+<li><img src="https://latex.codecogs.com/png.latex?y_c=1"> if color <img src="https://latex.codecogs.com/png.latex?c"> is used, <img src="https://latex.codecogs.com/png.latex?x_%7Bic%7D=1"> if state <img src="https://latex.codecogs.com/png.latex?i"> is colored with color <img src="https://latex.codecogs.com/png.latex?c">.</li>
+<li>Objective (a) is to minimize the number of colors used</li>
+<li>Constraint (b) ensures that each state gets some color</li>
+<li>Constraint (c) ensures that if state <img src="https://latex.codecogs.com/png.latex?i"> and <img src="https://latex.codecogs.com/png.latex?j"> are adjacent, they don’t get the same color.</li>
+</ul>
+</div>
+<div id="tabset-2-2" class="tab-pane" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="co" style="color: #5E5E5E;"># OMPR model</span></span>
+<span id="cb4-2">ns <span class="ot" style="color: #003B4F;">=</span> <span class="fu" style="color: #4758AB;">nrow</span>(nodes_df)</span>
+<span id="cb4-3">nc <span class="ot" style="color: #003B4F;">=</span> <span class="dv" style="color: #AD0000;">4</span></span>
+<span id="cb4-4">edge_str <span class="ot" style="color: #003B4F;">=</span> edge_df <span class="sc" style="color: #5E5E5E;">%&gt;%</span> <span class="fu" style="color: #4758AB;">mutate</span>(<span class="at" style="color: #657422;">edge_str =</span> <span class="fu" style="color: #4758AB;">glue</span>(<span class="st" style="color: #20794D;">"{fromid}_{toid}"</span>)) <span class="sc" style="color: #5E5E5E;">%&gt;%</span> <span class="fu" style="color: #4758AB;">pull</span>(edge_str)</span>
+<span id="cb4-5">mdl <span class="ot" style="color: #003B4F;">=</span> <span class="fu" style="color: #4758AB;">MIPModel</span>()</span>
+<span id="cb4-6">mdl <span class="ot" style="color: #003B4F;">=</span> mdl <span class="sc" style="color: #5E5E5E;">%&gt;%</span> <span class="fu" style="color: #4758AB;">add_variable</span>(x[i, c], <span class="at" style="color: #657422;">i =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>ns, <span class="at" style="color: #657422;">c =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nc, <span class="at" style="color: #657422;">type =</span> <span class="st" style="color: #20794D;">"integer"</span>, <span class="at" style="color: #657422;">lb =</span> <span class="dv" style="color: #AD0000;">0</span>, <span class="at" style="color: #657422;">ub =</span> <span class="dv" style="color: #AD0000;">1</span>)</span>
+<span id="cb4-7">mdl <span class="ot" style="color: #003B4F;">=</span> mdl <span class="sc" style="color: #5E5E5E;">%&gt;%</span> <span class="fu" style="color: #4758AB;">add_variable</span>(y[c], <span class="at" style="color: #657422;">c =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nc, <span class="at" style="color: #657422;">type =</span> <span class="st" style="color: #20794D;">"integer"</span>, <span class="at" style="color: #657422;">lb =</span> <span class="dv" style="color: #AD0000;">0</span>, <span class="at" style="color: #657422;">ub =</span> <span class="dv" style="color: #AD0000;">1</span>)</span>
+<span id="cb4-8">mdl <span class="ot" style="color: #003B4F;">=</span> mdl <span class="sc" style="color: #5E5E5E;">%&gt;%</span> <span class="fu" style="color: #4758AB;">set_objective</span>(<span class="fu" style="color: #4758AB;">sum_over</span>(y[c], <span class="at" style="color: #657422;">c=</span><span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nc))</span>
+<span id="cb4-9">mdl <span class="ot" style="color: #003B4F;">=</span> mdl <span class="sc" style="color: #5E5E5E;">%&gt;%</span> <span class="fu" style="color: #4758AB;">add_constraint</span>(<span class="fu" style="color: #4758AB;">sum_over</span>(x[i, c], <span class="at" style="color: #657422;">c =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nc) <span class="sc" style="color: #5E5E5E;">==</span> <span class="dv" style="color: #AD0000;">1</span>, <span class="at" style="color: #657422;">i =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>ns)</span>
+<span id="cb4-10">mdl <span class="ot" style="color: #003B4F;">=</span> mdl <span class="sc" style="color: #5E5E5E;">%&gt;%</span> <span class="fu" style="color: #4758AB;">add_constraint</span>(x[i, c] <span class="sc" style="color: #5E5E5E;">+</span> x[j, c] <span class="sc" style="color: #5E5E5E;">&lt;=</span> y[c], <span class="at" style="color: #657422;">i =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>ns, <span class="at" style="color: #657422;">j =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>ns, <span class="at" style="color: #657422;">c =</span> <span class="dv" style="color: #AD0000;">1</span><span class="sc" style="color: #5E5E5E;">:</span>nc, <span class="fu" style="color: #4758AB;">glue</span>(<span class="st" style="color: #20794D;">"{i}_{j}"</span>) <span class="sc" style="color: #5E5E5E;">%in%</span> edge_str)</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Solving this problem give the following map coloring</p>
+<p><img src="https://www.notesofdabbler.com/posts/post_2022_09_05/USmap_colored.png" class="img-fluid"></p>
+
+
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <guid>https://www.notesofdabbler.com/posts/post_2022_09_05/index.html</guid>
+  <pubDate>Mon, 05 Sep 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://www.notesofdabbler.com/posts/post_2022_09_05/network_info.png" medium="image" type="image/png" height="121" width="144"/>
+</item>
+</channel>
+</rss>
